@@ -1,0 +1,41 @@
+.accounts-container {
+  display:flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.accounts-row {
+  display: flex;
+  justify-content:center;
+  margin: 50px 0;
+  max-width: 1050px;
+  flex-flow: row wrap;
+  flex-direction: column;
+}
+
+.sell-container {
+  margin-top: 20px;
+  .sell {
+    padding: 10px 30px;
+    background: red;
+    color: white;
+    border-radius: 3px;
+    display:flex;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background: gray;
+    }
+  }
+}
+
+.purchases-container {
+  margin-top: 20px;
+}
+
+.listings-container {
+  margin-top: 20px;
+}
+

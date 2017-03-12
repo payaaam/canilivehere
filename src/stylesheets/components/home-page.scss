@@ -1,60 +1,11 @@
-.watch-row {
+.home-row {
   display:flex;
   flex-direction: row;
   justify-content: center;
   margin-top: 40px;
   flex-flow: row wrap;
-
-  a:visited {
-    color:black;
-  }
-  a {
-    color:black;
-  }
 }
 
-.watch-container {
+.home-container {
   max-width:1200px;
-}
-
-.watch {
-
-  height: 550px;
-  width: 500px;
-  background: #FAFAFA;
-  margin: 0 20px 20px;
-  border: 1px solid #efefef;
-  display:flex;
-  flex-direction:column;
-  cursor: pointer;
-  text-decoration:none;
-
-  .info {
-    height:15%;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-  }
-
-  .picture {
-    height: 75%;
-    background: grey;
-  }
-
-  .price {
-    height:10%;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-  }
-
-  @media (max-width: 600px) {
-    margin: 0px;
-    margin-bottom: 20px;
-  }
-
-  &:hover {
-    transform: scale(1.02);
-    transition-duration: 0.1s;
-  }
 }

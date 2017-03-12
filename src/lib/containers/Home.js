@@ -1,22 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import '../../stylesheets/components/home-page.scss'
-import Watch from '../components/Watch'
-import { fetchListingsIfNeeded } from '../actions/ListingActions'
 
 class Home extends Component {
 
-  componentDidMount() {
-    this.props.dispatch(fetchListingsIfNeeded())
-  }
+  componentDidMount() {}
 
   render() {
-    const watches = this.props.watches
 
     return (
-      <div className="watch-container">
-        <section className="watch-row">
-        {watches.map((watch)=> <Watch key={watch.id} watch={watch}/>)}
+      <div className="home-container">
+        <section className="home-row">
+          Main Section
         </section>
       </div>
     )
@@ -24,14 +19,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => {
-  const { listings } = state
-  const watches = listings.items
-  const isFetching = listings.isFetching
-
-  return {
-    watches,
-    isFetching,
-  }
+  return {}
 }
 
 export default connect(mapStateToProps)(Home)

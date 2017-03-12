@@ -1,8 +1,6 @@
-# Watch Site React Web App
+# Base React Repo
 
 This project template was built with [Create React App](https://github.com/facebookincubator/create-react-app).
-
-
 
 ## Getting Started
 

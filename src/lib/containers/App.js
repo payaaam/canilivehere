@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Header from './Header'
-import Footer from './Footer'
 
 import '../../stylesheets/main.scss'
 
@@ -15,10 +14,7 @@ class App extends Component {
     return (
       <div className="wrapper-container">
         <Header />
-        <main className="main-container">
-          {children}
-        </main>
-        <Footer />
+        {children}
       </div>
     )
   }

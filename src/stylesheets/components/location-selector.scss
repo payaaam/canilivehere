@@ -1,0 +1,22 @@
+.location-box {
+  height:150px;
+  width:350px;
+  position: absolute;
+  right:25px;
+  top:100px;
+  background: #fff;
+  box-shadow: 1px 1px 1px 1px #ccc;
+}
+
+.location-input {
+  width:100%;
+  input {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.site-title {
+  font-size: 18px;
+  color: red;
+}

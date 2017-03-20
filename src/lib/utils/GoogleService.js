@@ -1,4 +1,3 @@
-//const emitter = require('event-emitter');
 const google = window.google;
 
 class GoogleService {

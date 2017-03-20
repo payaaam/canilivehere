@@ -3,14 +3,15 @@ import { connect } from 'react-redux'
 import ChipotleMap from '../components/ChipotleMap'
 import { fetchGeolocation } from '../actions/LocationActions'
 import Loading from '../components/Loading'
-import LocationSelect from '../components/LocationSelect'
+import LocationSearch from '../components/LocationSearch'
+
 import '../../stylesheets/components/chipotle-map.scss'
 
 
 class MapContainer extends Component {
 
   componentWillMount() {
-    this.props.dispatch(fetchGeolocation())
+    this.props.dispatch(fetchGeolocation());
   }
 
   componentDidMount() {}
@@ -29,7 +30,7 @@ class MapContainer extends Component {
             <div style={{ height: `100%` }} />
           }
         />
-        <LocationSelect />
+        <LocationSearch />
       </div>
     )
   }

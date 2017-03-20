@@ -1,5 +1,10 @@
+import GoogleService from '../utils/GoogleService';
+const googleService = new GoogleService();
+
 export const REQUEST_GEOLOCATION = 'REQUEST_GEOLOCATION'
 export const RECEIVE_GEOLOCATION = 'RECEIVE_GEOLOCATION'
+export const REQUEST_USER_LOCATION = 'RECEIVE_USER_LOCATION'
+export const RECEIVE_USER_LOCATION = 'RECEIVE_USER_LOCATION'
 
 export function requestGeolocation() {
   return {
@@ -35,5 +40,35 @@ export function fetchGeolocation() {
         */
       }
     );
+  }
+}
+
+export function requestUserLocation() {
+  return {
+    type: REQUEST_USER_LOCATION
+  }
+}
+
+export function receiveUserLocation(coordinates) {
+  return {
+    type: RECEIVE_USER_LOCATION,
+    coordinates
+  }
+}
+
+export function fetchUserLocation(addressText) {
+  return (dispatch) => {
+    dispatch(requestUserLocation())
+    return googleService.getCoordinatesFromAddress(addressText)
+      .then((response) => {
+        let coordinates = {
+          latitude: response[0].geometry.location.lat(),
+          longitude: response[0].geometry.location.lng() 
+        }
+        return dispatch(receiveGeolocation(coordinates))
+      })
+      .catch((err)  => {
+
+      })
   }
 }

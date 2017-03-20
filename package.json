@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "antd": "^2.5.0",
+    "event-emitter": "^0.3.5",
     "humps": "^1.1.0",
     "lodash": "^4.16.1",
     "normalizr": "^2.2.1",

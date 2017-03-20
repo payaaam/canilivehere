@@ -8,11 +8,20 @@
   box-shadow: 1px 1px 1px 1px #ccc;
 }
 
-.location-input {
+.location-input-container {
   width:100%;
-  input {
+  padding-top:10px;
+
+  .location-input {
     margin-left: 10px;
     margin-right: 10px;
+    width:250px;
+    font-size:18px;
+    height:30px;
+  }
+
+  .search-button {
+    height:30px;
   }
 }
 

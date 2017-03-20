@@ -13,6 +13,8 @@ class MapContainer extends Component {
     this.props.dispatch(fetchGeolocation())
   }
 
+  componentDidMount() {}
+
   renderMapView() {
     let { centerLocation } = this.props;
 

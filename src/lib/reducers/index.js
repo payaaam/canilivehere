@@ -7,7 +7,6 @@ const defaultReducer = (state={}, action) => {
 }
 
 const defaultLocation = {
-  isFetching: true,
   center: {
     lat: 40.748,
     lng: -73.985
@@ -18,8 +17,7 @@ const location = (state=defaultLocation, action) => {
   switch (action.type) {
     case REQUEST_GEOLOCATION:
       return {
-        ...state,
-        isFetching: true
+        ...state
       }
     case RECEIVE_GEOLOCATION:
       return {
@@ -27,8 +25,7 @@ const location = (state=defaultLocation, action) => {
         center: {
           lat: action.coordinates.latitude,
           lng: action.coordinates.longitude
-        },
-        isFetching: false
+        }
       }
     default:
       return state

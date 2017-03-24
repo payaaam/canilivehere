@@ -7,28 +7,28 @@ import LocationSearch from '../components/LocationSearch'
 
 import '../../stylesheets/components/chipotle-map.scss'
 
-
 class MapContainer extends Component {
-
-  state = {
-    markers: [{
-      position: {
-        lat: 40.747917,
-        lng: -74.000169,
-      },
-      key: 'Home',
-      defaultAnimation: 2,
-  }]
-};
 
   componentWillMount() {
     this.props.dispatch(fetchGeolocation());
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+  }
+
+  newHomeMarker(coords) {
+    return {
+      position: {
+        lat: coords.lat,
+        lng: coords.lng,
+      },
+      key: 'Home',
+      defaultAnimation: 2,
+    }
+  }
 
   renderMapView() {
-    let { centerLocation } = this.props;
+    let { centerLocation, markers } = this.props;
 
     return (
       <div className="map-container">
@@ -40,7 +40,7 @@ class MapContainer extends Component {
           mapElement={
             <div style={{ height: `100%` }} />
           }
-          markers={this.state.markers}
+          markers={markers}
         />
         <LocationSearch />
       </div>
@@ -49,6 +49,7 @@ class MapContainer extends Component {
 
   render() {
     let { isFetchingLocation } = this.props;
+
     return (
       <div>
       { isFetchingLocation === true ? <Loading /> : this.renderMapView() }
@@ -61,10 +62,13 @@ const mapStateToProps = state => {
   const location = state.location;
   const centerLocation = location.center;
   const isFetchingLocation = location.isFetching;
+  const markers = [location.marker];
+
 
   return {
     centerLocation,
-    isFetchingLocation
+    isFetchingLocation,
+    markers
   }
 }
 

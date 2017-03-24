@@ -4,7 +4,8 @@ const defaultLocation = {
   center: {
     lat: 40.748,
     lng: -73.985
-  }
+  },
+  marker: {}
 }
 
 const location = (state=defaultLocation, action) => {
@@ -19,6 +20,14 @@ const location = (state=defaultLocation, action) => {
         center: {
           lat: action.coordinates.latitude,
           lng: action.coordinates.longitude
+        },
+        marker: {
+          position: {
+            lat: action.coordinates.latitude,
+            lng: action.coordinates.longitude,
+          },
+          key: 'Home',
+          defaultAnimation: 2,
         }
       }
     default:

@@ -10,6 +10,17 @@ import '../../stylesheets/components/chipotle-map.scss'
 
 class MapContainer extends Component {
 
+  state = {
+    markers: [{
+      position: {
+        lat: 40.747917,
+        lng: -74.000169,
+      },
+      key: 'Home',
+      defaultAnimation: 2,
+  }]
+};
+
   componentWillMount() {
     this.props.dispatch(fetchGeolocation());
   }
@@ -29,6 +40,7 @@ class MapContainer extends Component {
           mapElement={
             <div style={{ height: `100%` }} />
           }
+          markers={this.state.markers}
         />
         <LocationSearch />
       </div>

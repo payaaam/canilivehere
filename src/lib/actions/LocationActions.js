@@ -1,27 +1,28 @@
 import GoogleService from '../utils/GoogleService';
 const googleService = new GoogleService();
 const browserGeolocation = navigator.geolocation
+import { fetchChipotleLocations } from './ChipotleLocationActions';
 
-export const REQUEST_LOCATION = 'REQUEST_LOCATION'
-export const RECEIVE_LOCATION = 'RECEIVE_LOCATION'
-export const RECEIVE_LOCATION_ERROR = 'RECEIVE_LOCATION_ERROR'
+export const REQUEST_HOME_LOCATION = 'REQUEST_HOME_LOCATION'
+export const RECEIVE_HOME_LOCATION = 'RECEIVE_HOME_LOCATION'
+export const RECEIVE_HOME_LOCATION_ERROR = 'RECEIVE_HOME_LOCATION_ERROR'
 
-export function requestLocation() {
+export function requestHomeLocation() {
   return {
-    type: REQUEST_LOCATION
+    type: REQUEST_HOME_LOCATION
   }
 }
 
-export function receiveLocation(coordinates) {
+export function receiveHomeLocation(coordinates) {
   return {
-    type: RECEIVE_LOCATION,
+    type: RECEIVE_HOME_LOCATION,
     coordinates
   }
 }
 
-export function receiveLocationError(err) {
+export function receiveHomeLocationError(err) {
   return {
-    type: RECEIVE_LOCATION,
+    type: RECEIVE_HOME_LOCATION_ERROR,
     err: err
   }
 }
@@ -31,13 +32,13 @@ export function receiveLocationError(err) {
  */
 export function fetchGeolocation() {
   return (dispatch) => {
-    dispatch(requestLocation())
+    dispatch(requestHomeLocation())
 
     // Check localStorage
     let cachedLocation = localStorage.getItem('canilivehere-geolocation')
     if (cachedLocation) {
       cachedLocation = JSON.parse(cachedLocation);
-      return dispatch(receiveLocation(cachedLocation));
+      return dispatch(receiveHomeLocation(cachedLocation));
     }
     
     browserGeolocation.getCurrentPosition(
@@ -48,10 +49,10 @@ export function fetchGeolocation() {
         }
 
         localStorage.setItem('canilivehere-geolocation', JSON.stringify(coords));
-        dispatch(receiveLocation(coords));
+        dispatch(receiveHomeLocation(coords));
       },
       (err) => {
-        dispatch(receiveLocationError(err))
+        dispatch(receiveHomeLocationError(err))
       }
     );
   }
@@ -65,17 +66,17 @@ export function fetchGeolocation() {
  */
 export function fetchUserLocation(addressText) {
   return (dispatch) => {
-    dispatch(requestLocation())
+    dispatch(requestHomeLocation())
     return googleService.getCoordinatesFromAddress(addressText)
       .then((response) => {
         let coordinates = {
           latitude: response[0].geometry.location.lat(),
           longitude: response[0].geometry.location.lng() 
         }
-        return dispatch(receiveLocation(coordinates))
+        return dispatch(receiveHomeLocation(coordinates))
       })
       .catch((err)  => {
-        dispatch(receiveLocationError(err))
+        dispatch(receiveHomeLocationError(err))
       })
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchUserLocation } from '../actions/LocationActions'
+import { fetchChipotleLocations } from '../actions/ChipotleLocationActions'
 import '../../stylesheets/components/location-selector.scss'
 
 class LocationSearch extends Component {
@@ -37,6 +38,7 @@ class LocationSearch extends Component {
           <input type="text" onChange={this.handleInputChange.bind(this)} className="location-input"></input>
           <input type="submit" className="search-button"/>
         </form>
+        <button onClick={this.props.onSearch.bind(this)}>Search for Chipotle</button>
       </div>
     )
   }

@@ -1,10 +1,12 @@
 import { routerReducer as routing } from 'react-router-redux'
 import { combineReducers } from 'redux'
-import location from './LocationReducer'
+import homeLocation from './HomeLocationReducer'
+import chipotleLocations from './ChipotleLocationReducer'
 
 const rootReducer = combineReducers({
   routing,
-  location
+  homeLocation,
+  chipotleLocations
 })
 
 export default rootReducer

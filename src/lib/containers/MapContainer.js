@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ChipotleMap from '../components/ChipotleMap'
 import { fetchGeolocation } from '../actions/LocationActions'
+import { fetchChipotleLocations } from '../actions/ChipotleLocationActions'
 import Loading from '../components/Loading'
 import LocationSearch from '../components/LocationSearch'
 
@@ -13,26 +14,24 @@ class MapContainer extends Component {
     this.props.dispatch(fetchGeolocation());
   }
 
-  componentDidMount() {
+  // Store Map Reference
+  getMapReference(map) {
+    if (map) {
+      this.googleMapsObject = map.getDiv();  
+    } 
   }
 
-  newHomeMarker(coords) {
-    return {
-      position: {
-        lat: coords.lat,
-        lng: coords.lng,
-      },
-      key: 'Home',
-      defaultAnimation: 2,
-    }
+  handleChipotleSearch() {
+    this.props.dispatch(fetchChipotleLocations(this.googleMapsObject));
   }
 
   renderMapView() {
-    let { centerLocation, markers } = this.props;
+    let { centerLocation, homeMarker, chipotleLocations } = this.props;
 
     return (
       <div className="map-container">
-        <ChipotleMap  
+        <ChipotleMap 
+          onMapLoad={this.getMapReference.bind(this)}
           center={centerLocation}
           containerElement={
             <div style={{ height: `100%` }} />
@@ -40,9 +39,12 @@ class MapContainer extends Component {
           mapElement={
             <div style={{ height: `100%` }} />
           }
-          markers={markers}
+          homeMarker={homeMarker}
+          chipotleMarkers={chipotleLocations}
         />
-        <LocationSearch />
+        <LocationSearch 
+          onSearch={this.handleChipotleSearch.bind(this)}
+        />
       </div>
     )
   }
@@ -59,16 +61,19 @@ class MapContainer extends Component {
 }
 
 const mapStateToProps = state => {
-  const location = state.location;
-  const centerLocation = location.center;
-  const isFetchingLocation = location.isFetching;
-  const markers = [location.marker];
-
+  const { homeLocation } = state;
+  const chipotleLocations = state.chipotleLocations.locations;
+  const centerLocation = homeLocation.center;
+  const isFetchingLocation = homeLocation.isFetching;
+  const homeMarker = {
+    position: centerLocation
+  }
 
   return {
     centerLocation,
+    chipotleLocations,
     isFetchingLocation,
-    markers
+    homeMarker
   }
 }
 

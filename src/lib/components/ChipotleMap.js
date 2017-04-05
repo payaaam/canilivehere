@@ -6,7 +6,7 @@ import ChipotleMarker from './ChipotleMarker';
 // Helper function to display all of the chipotle locations
 const displayChipotleMarkers = (props) => {
   return props.chipotleMarkers.map((loc) => {
-    return <ChipotleMarker position={loc.location} />
+    return <ChipotleMarker config={loc}/>
   });
 }
 
@@ -21,6 +21,7 @@ const ChipotleMap = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
     defaultZoom={14}
+    onBoundsChanged={props.onBoundsChanged}
     center={props.center}>
     {dispalyHomeMarker(props)}
     {displayChipotleMarkers(props)}

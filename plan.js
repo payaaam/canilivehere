@@ -11,7 +11,9 @@
     center: {
       lat: action.coordinates.latitude,
       lng: action.coordinates.longitude
-    }
+    },
+    marker:{},
+    bounds: null
   },
   venderLocation: {
     chipotle: [
@@ -130,4 +132,8 @@ http://stackoverflow.com/questions/23219410/custom-google-maps-marker-from-sprit
     size: new google.maps.Size(60, 60),
     scaledSize: new google.maps.Size(30, 30)
   }
+
+
 }
+//let placesApiSearch = `${PLACES_BASE_URL}?query=chipotle&location=${lat},${lng}&key=${config.googleMapsApiKey}`
+const PLACES_BASE_URL ='https://maps.googleapis.com/maps/api/place/textsearch/json';

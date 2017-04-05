@@ -10,19 +10,28 @@ import '../../stylesheets/components/chipotle-map.scss'
 
 class MapContainer extends Component {
 
+  state = {
+    bounds: null
+  }
+
   componentWillMount() {
     this.props.dispatch(fetchGeolocation());
   }
 
   // Store Map Reference
   getMapReference(map) {
-    if (map) {
-      this.googleMapsObject = map.getDiv();  
-    } 
+    this._googleMapsObject = map;
+  }
+
+  handleBoundsChanged() {
+    this.setState({
+      bounds: this._googleMapsObject.getBounds(),
+      center: this._googleMapsObject.getCenter(),
+    });
   }
 
   handleChipotleSearch() {
-    this.props.dispatch(fetchChipotleLocations(this.googleMapsObject));
+    this.props.dispatch(fetchChipotleLocations());
   }
 
   renderMapView() {
@@ -32,6 +41,7 @@ class MapContainer extends Component {
       <div className="map-container">
         <ChipotleMap 
           onMapLoad={this.getMapReference.bind(this)}
+          onBoundsChanged={this.handleBoundsChanged.bind(this)}
           center={centerLocation}
           containerElement={
             <div style={{ height: `100%` }} />

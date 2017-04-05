@@ -5,6 +5,7 @@ const defaultLocation = {
     lat: 40.748,
     lng: -73.985
   },
+  bounds: null,
   marker: {}
 }
 

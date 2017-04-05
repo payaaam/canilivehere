@@ -6,20 +6,21 @@ class ChipotleMarker extends Component {
 
   state = {
     defaultAnimation: 2,
+    
     icon: {
-      url: '/images/chipotle.png',
-      size: new google.maps.Size(60, 60),
-      scaledSize: new google.maps.Size(30, 30)
+      url: '/images/chipotle-marker.png',
+      size: new google.maps.Size(33, 50),
+      scaledSize: new google.maps.Size(33, 50)
     }
   }
 
   render() {
-    const { position, key } = this.props;
+    const { placeId, location } = this.props.config;
     const { defaultAnimation, icon } = this.state;
     return (
       <Marker 
-        position={position}
-        key={key}
+        position={location}
+        key={placeId}
         defaultAnimation={defaultAnimation}
         icon={icon}
       />

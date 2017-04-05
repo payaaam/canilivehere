@@ -8,7 +8,8 @@ class HomeMarker extends Component {
     key: 'home',
     defaultAnimation: 2,
     icon: {
-      url: '/images/home-icon.png',
+      //url: '/images/home-icon.png',
+      url: 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png',
       size: new google.maps.Size(60, 60),
       scaledSize: new google.maps.Size(30, 30)
     }

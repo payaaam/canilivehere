@@ -7,6 +7,16 @@ header {
   background-color: #FAFAFA;
   box-shadow: 0px 0px 2px gray;
   font-size:20px;
+  color: #54392d;
+}
+
+.chipotle-logo {
+  background: url("/images/chipotle.png");
+  background-size: 30px 30px;
+  display:block;
+  width:30px;
+  height:30px;
+  margin-right:10px;
 }
 
 .header-row {

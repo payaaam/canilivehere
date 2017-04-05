@@ -35,6 +35,7 @@ export function fetchGeolocation() {
     dispatch(requestHomeLocation())
 
     // Check localStorage
+    
     let cachedLocation = localStorage.getItem('canilivehere-geolocation')
     if (cachedLocation) {
       cachedLocation = JSON.parse(cachedLocation);

@@ -31,12 +31,12 @@ export function receiveChipotleLocationError(err) {
  * 
  * @param  {Object} currentLocation An object containing {lat:10, lng: 10}
  */
-export function fetchChipotleLocations(googleMapReference) {
+export function fetchChipotleLocations() {
   return (dispatch, getState) => {
     let { homeLocation } = getState();
 
     dispatch(requestChipotleLocations())
-    return googleService.getChipotleLocations(homeLocation.center, googleMapReference)
+    return googleService.getChipotleLocations(homeLocation.center)
       .then((response) => {
         let counter = 0;
         let locations = response.map((chipotleLocation) => {

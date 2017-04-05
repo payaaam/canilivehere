@@ -77,6 +77,34 @@ class GoogleService {
       });
     });
   }
+
+  /**
+   * This function hits the matrix map API to get walking / driving distance
+   * to the closest chipotle location
+   * @param  {[type]} currentLocation [description]
+   * @return {[type]}                 [description]
+   */
+  getClosestChipotleDistance(currentLocation) {
+    return new Promise((resolve,reject) => {
+      if (!this.isGoogleMapsLoaded()) {
+        return reject(new Error('Library not loaded yet'));
+      }
+
+      let { lat, lng }  = currentLocation;
+      let requestOptions = {
+        query: 'Chipotle',
+        location: new this.googleMaps.LatLng(lat, lng),
+        rankBy: this.googleMaps.places.RankBy.DISTANCE
+      }
+      
+      this.placesService.textSearch(requestOptions, (results, status) => {
+        if (status !== 'OK') {
+          return reject(new Error('Some google error'));
+        }
+        return resolve(results);
+      });
+    });
+  }
 }
 
 export default GoogleService

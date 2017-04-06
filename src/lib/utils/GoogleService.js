@@ -24,6 +24,7 @@ class GoogleService {
       this.mapReference = this.generateMapReference();
       this.geocodeService = new this.googleMaps.Geocoder;
       this.placesService = new this.googleMaps.places.PlacesService(this.mapReference);
+      this.distanceService = new google.maps.DistanceMatrixService();
       this.ready = true;
       return true;
     }
@@ -84,20 +85,27 @@ class GoogleService {
    * @param  {[type]} currentLocation [description]
    * @return {[type]}                 [description]
    */
-  getClosestChipotleDistance(currentLocation) {
+  getClosestChipotleDistance(currentLocation, chipotleLocations) {
     return new Promise((resolve,reject) => {
       if (!this.isGoogleMapsLoaded()) {
         return reject(new Error('Library not loaded yet'));
       }
 
       let { lat, lng }  = currentLocation;
-      let requestOptions = {
-        query: 'Chipotle',
-        location: new this.googleMaps.LatLng(lat, lng),
-        rankBy: this.googleMaps.places.RankBy.DISTANCE
+      let currentOrigin = new this.googleMaps.LatLng(lat, lng);
+      let destinationLocations = chipotleLocations.map(chipotle => chipotle.location);
+
+      let distanceOptions = {
+        origins: [currentOrigin],
+        destinations: destinationLocations,
+        travelMode: 'WALKING',
+        unitSystem: this.googleMaps.UnitSystem.IMPERIAL
       }
+
+      debugger;
       
-      this.placesService.textSearch(requestOptions, (results, status) => {
+      this.distanceService.getDistanceMatrix(distanceOptions, (results, status) => {
+        debugger;
         if (status !== 'OK') {
           return reject(new Error('Some google error'));
         }

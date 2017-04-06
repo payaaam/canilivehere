@@ -56,3 +56,24 @@ export function fetchChipotleLocations() {
       })
   }
 }
+
+/**
+ * This function takes address string and gets its coordinates (lat, lng)
+ * from Google. 
+ * 
+ * @param  {Object} currentLocation An object containing {lat:10, lng: 10}
+ */
+export function fetchChipotleDistances() {
+  return (dispatch, getState) => {
+    let { homeLocation, chipotleLocations } = getState();
+    
+    debugger;
+    return googleService.getClosestChipotleDistance(homeLocation.center, chipotleLocations.locations)
+      .then((response) => {
+        debugger;
+      })
+      .catch((err)  => {
+        dispatch(receiveChipotleLocationError(err))
+      })
+  }
+}

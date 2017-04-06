@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ChipotleMap from '../components/ChipotleMap'
 import { fetchGeolocation } from '../actions/LocationActions'
-import { fetchChipotleLocations } from '../actions/ChipotleLocationActions'
+import { fetchChipotleLocations, fetchChipotleDistances } from '../actions/ChipotleLocationActions'
 import Loading from '../components/Loading'
 import LocationSearch from '../components/LocationSearch'
 
@@ -34,6 +34,10 @@ class MapContainer extends Component {
     this.props.dispatch(fetchChipotleLocations());
   }
 
+  handleChipotleDistanceClick() {
+    this.props.dispatch(fetchChipotleDistances());
+  }
+
   renderMapView() {
     let { centerLocation, homeMarker, chipotleLocations } = this.props;
 
@@ -54,6 +58,7 @@ class MapContainer extends Component {
         />
         <LocationSearch 
           onSearch={this.handleChipotleSearch.bind(this)}
+          onDistanceSearch={this.handleChipotleDistanceClick.bind(this)}
         />
       </div>
     )

@@ -39,6 +39,7 @@ class LocationSearch extends Component {
           <input type="submit" className="search-button"/>
         </form>
         <button onClick={this.props.onSearch.bind(this)}>Search for Chipotle</button>
+        <button onClick={this.props.onDistanceSearch.bind(this)}>Get Distances</button>
       </div>
     )
   }

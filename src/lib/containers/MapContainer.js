@@ -35,7 +35,8 @@ class MapContainer extends Component {
   }
 
   handleChipotleDistanceClick() {
-    this.props.dispatch(fetchChipotleDistances());
+    this.props.dispatch(fetchChipotleDistances('walking'));
+    this.props.dispatch(fetchChipotleDistances('driving'));
   }
 
   renderMapView() {

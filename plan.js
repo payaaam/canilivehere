@@ -3,8 +3,6 @@
 
 
 // store
-
-
 {
 
   homeLocation: {
@@ -15,10 +13,20 @@
     marker:{},
     bounds: null
   },
-  venderLocation: {
-    chipotle: [
+  chipotleLocations: {
+    locations: [
       {
         rankByDistance: 1,
+        distance: {
+          walking: {
+            distance: '0.7m',
+            duration: '7 mins'
+          },
+          driving: {
+            distance: '0.1m',
+            duration: '5 mins'
+          }
+        },
         location : {
           lat : -33.867217,
           lng : 151.195939
@@ -28,7 +36,11 @@
         id: '7eaf747a3f6dc078868cd65efc8d3bc62fff77d7'
       },
       {
-        rankByDistance: 2
+        rankByDistance: 2,
+        distance: {
+          driving: '',
+          walking: ''
+        },
         location : {
           lat : -33.866786,
           lng : 151.195633

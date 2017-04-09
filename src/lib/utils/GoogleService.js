@@ -1,6 +1,10 @@
 import _ from 'lodash'
 import config from '../config'
 const google = window.google;
+const TRAVEL_MODE_MAP = {
+  'walking': 'WALKING',
+  'driving': 'DRIVING'
+}
 
 class GoogleService {
 
@@ -85,27 +89,31 @@ class GoogleService {
    * @param  {[type]} currentLocation [description]
    * @return {[type]}                 [description]
    */
-  getClosestChipotleDistance(currentLocation, chipotleLocations) {
+  getClosestChipotleDistance(currentLocation, chipotleLocations, travelMode) {
     return new Promise((resolve,reject) => {
       if (!this.isGoogleMapsLoaded()) {
         return reject(new Error('Library not loaded yet'));
       }
-
+  
       let { lat, lng }  = currentLocation;
       let currentOrigin = new this.googleMaps.LatLng(lat, lng);
-      let destinationLocations = chipotleLocations.map(chipotle => chipotle.location);
+      let destinationLocations = chipotleLocations.map(chipotle => chipotle.address);
+      /*
+      let destinationLocations = chipotleLocations.map((chipotle) => {
+        return {
+          placeId: chipotle.placeId
+        }
+      });
+      */
 
       let distanceOptions = {
         origins: [currentOrigin],
         destinations: destinationLocations,
-        travelMode: 'WALKING',
+        travelMode: TRAVEL_MODE_MAP[travelMode],
         unitSystem: this.googleMaps.UnitSystem.IMPERIAL
       }
-
-      debugger;
       
       this.distanceService.getDistanceMatrix(distanceOptions, (results, status) => {
-        debugger;
         if (status !== 'OK') {
           return reject(new Error('Some google error'));
         }

@@ -1,26 +1,51 @@
 import GoogleService from '../utils/GoogleService';
 const googleService = new GoogleService();
 
-export const REQUEST_CHIPOTLE_LOCATION = 'REQUEST_CHIPOTLE_LOCATION'
-export const RECEIVE_CHIPOTLE_LOCATION = 'RECEIVE_CHIPOTLE_LOCATION'
-export const RECEIVE_CHIPOTLE_LOCATION_ERROR = 'RECEIVE_CHIPOTLE_LOCATION_ERROR'
+export const REQUEST_CHIPOTLE_LOCATIONS = 'REQUEST_CHIPOTLE_LOCATIONS'
+export const RECEIVE_CHIPOTLE_LOCATIONS = 'RECEIVE_CHIPOTLE_LOCATIONS'
+export const RECEIVE_CHIPOTLE_LOCATIONS_ERROR = 'RECEIVE_CHIPOTLE_LOCATIONS_ERROR'
 
 export function requestChipotleLocations() {
   return {
-    type: REQUEST_CHIPOTLE_LOCATION
+    type: REQUEST_CHIPOTLE_LOCATIONS
   }
 }
 
-export function receiveChipotleLocation(locations) {
+export function receiveChipotleLocations(locations) {
   return {
-    type: RECEIVE_CHIPOTLE_LOCATION,
+    type: RECEIVE_CHIPOTLE_LOCATIONS,
     locations
   }
 }
 
-export function receiveChipotleLocationError(err) {
+export function receiveChipotleLocationsError(err) {
   return {
-    type: RECEIVE_CHIPOTLE_LOCATION_ERROR,
+    type: RECEIVE_CHIPOTLE_LOCATIONS_ERROR,
+    err: err
+  }
+}
+
+
+export const REQUEST_CHIPOTLE_DISTANCES = 'REQUEST_CHIPOTLE_DISTANCES';
+export const RECEIVE_CHIPOTLE_DISTANCES = 'RECEIVE_CHIPOTLE_DISTANCES';
+export const RECEIVE_CHIPOTLE_DISTANCES_ERROR = 'RECEIVE_CHIPOTLE_DISTANCES_ERROR';
+
+export function requestChipotleDistances() {
+  return {
+    type: REQUEST_CHIPOTLE_DISTANCES
+  }
+}
+
+export function receiveChipotleDistances(response) {
+  return {
+    type: RECEIVE_CHIPOTLE_DISTANCES,
+    response
+  }
+}
+
+export function receiveChipotleDistancesError(err) {
+  return {
+    type: RECEIVE_CHIPOTLE_DISTANCES_ERROR,
     err: err
   }
 }
@@ -45,14 +70,14 @@ export function fetchChipotleLocations() {
             location: chipotleLocation.geometry.location,
             id: chipotleLocation.id,
             placeId: chipotleLocation.place_id,
-            address: chipotleLocation.formatted_address,
+            address: chipotleLocation.formatted_address.replace('United States','USA'),
           }
         });
         
-        return dispatch(receiveChipotleLocation(locations))
+        return dispatch(receiveChipotleLocations(locations))
       })
       .catch((err)  => {
-        dispatch(receiveChipotleLocationError(err))
+        dispatch(receiveChipotleLocationsError(err))
       })
   }
 }
@@ -63,17 +88,34 @@ export function fetchChipotleLocations() {
  * 
  * @param  {Object} currentLocation An object containing {lat:10, lng: 10}
  */
-export function fetchChipotleDistances() {
+export function fetchChipotleDistances(travelMode) {
   return (dispatch, getState) => {
     let { homeLocation, chipotleLocations } = getState();
-    
-    debugger;
-    return googleService.getClosestChipotleDistance(homeLocation.center, chipotleLocations.locations)
+
+    dispatch(requestChipotleDistances())
+    return googleService.getClosestChipotleDistance(homeLocation.center, chipotleLocations.locations, travelMode)
       .then((response) => {
-        debugger;
+        let distanceResults = response.rows[0].elements;
+
+        let distanceResponse = {};
+        distanceResults.forEach((dist, index) => {
+          let placeId = response.destinationAddresses[index];
+          distanceResponse[placeId] = {
+            distance: dist.distance.text,
+            duration: dist.duration.text
+          }
+        });
+
+        let actionResponse = {
+          distances: distanceResponse,
+          travelMode
+        };
+
+        return dispatch(receiveChipotleDistances(actionResponse));
       })
       .catch((err)  => {
-        dispatch(receiveChipotleLocationError(err))
+        debugger;
+        dispatch(receiveChipotleDistancesError(err))
       })
   }
 }

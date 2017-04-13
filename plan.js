@@ -1,4 +1,19 @@
+1) Save 5 closest locations
+2) Make API Directions call for walking / driving
+3) Save in state
+4) Load chipotle spinning logo while its making the requests
 
+
+UX
+Present user with dialogue in the center of screen
+ - Use Current location
+ - Enter address
+
+Display Yes you can live here in top right corner because you are X minutes away
+
+
+
+IDEA: heatmap near and around chipotle
 
 
 
@@ -27,6 +42,7 @@
             duration: '5 mins'
           }
         },
+        directions: DIRECTIONS_OBJECT
         location : {
           lat : -33.867217,
           lng : 151.195939

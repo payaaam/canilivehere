@@ -6,6 +6,7 @@ import {
 } from '../actions/ChipotleLocationActions'
 
 const defaultLocation = {
+  isFetching: false,
   locations: []
 }
 
@@ -13,7 +14,8 @@ const chipotleLocations = (state=defaultLocation, action) => {
   switch (action.type) {
     case REQUEST_CHIPOTLE_LOCATIONS:
       return {
-        ...state
+        ...state,
+        isFetching: true
       }
     case RECEIVE_CHIPOTLE_LOCATIONS:
       return {
@@ -26,15 +28,16 @@ const chipotleLocations = (state=defaultLocation, action) => {
       }
     case RECEIVE_CHIPOTLE_DISTANCES:
       let { distances, travelMode } = action.response;
-      debugger;
       let newLocations = state.locations.map((location) => {
         return {
           ...location,
           distance: {
             ...location.distance,
             [travelMode]: {
-              distance: distances[location.address].distance,
-              travelDuration: distances[location.address].duration
+              distance: distances[location.placeId].distance,
+              travelDuration: distances[location.placeId].duration,
+              directions: distances[location.placeId].directions
+
             }
           }
         }
@@ -42,6 +45,7 @@ const chipotleLocations = (state=defaultLocation, action) => {
 
       return {
         ...state,
+        isFetching: false,
         locations: newLocations
       }
     default:

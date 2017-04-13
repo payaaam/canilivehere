@@ -4,3 +4,35 @@
   justify-content: center;
   height: 90vh;
 }
+
+.loading-text {
+  height: 100px;
+  position: absolute;
+  top: 10px;
+}
+
+.chipotle-logo-loading {
+  background: url("/images/chipotle.png");
+  background-size: 250px 250px;
+  display:block;
+  width:250px;
+  height:250px;
+  position: absolute;
+  top: 50px;
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
+
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}

@@ -1,5 +1,8 @@
 import GoogleService from '../utils/GoogleService';
+import config from '../config';
 const googleService = new GoogleService();
+const NUMBER_OF_LOCATIONS = config.numberOfLocations;
+
 
 export const REQUEST_CHIPOTLE_LOCATIONS = 'REQUEST_CHIPOTLE_LOCATIONS'
 export const RECEIVE_CHIPOTLE_LOCATIONS = 'RECEIVE_CHIPOTLE_LOCATIONS'
@@ -64,7 +67,7 @@ export function fetchChipotleLocations() {
     return googleService.getChipotleLocations(homeLocation.center)
       .then((response) => {
         let counter = 0;
-        let locations = response.map((chipotleLocation) => {
+        let locations = response.slice(0, NUMBER_OF_LOCATIONS).map((chipotleLocation) => {
           return {
             rankByDistancelocation: counter++,
             location: chipotleLocation.geometry.location,
@@ -73,8 +76,10 @@ export function fetchChipotleLocations() {
             address: chipotleLocation.formatted_address.replace('United States','USA'),
           }
         });
-        
-        return dispatch(receiveChipotleLocations(locations))
+
+        dispatch(receiveChipotleLocations(locations));
+        dispatch(fetchChipotleDistances(locations, 'walking'));
+        //dispatch(fetchChipotleDistances(locations, 'driving'));
       })
       .catch((err)  => {
         dispatch(receiveChipotleLocationsError(err))
@@ -88,22 +93,30 @@ export function fetchChipotleLocations() {
  * 
  * @param  {Object} currentLocation An object containing {lat:10, lng: 10}
  */
-export function fetchChipotleDistances(travelMode) {
+export function fetchChipotleDistances(locations, travelMode) {
   return (dispatch, getState) => {
-    let { homeLocation, chipotleLocations } = getState();
+    let { homeLocation } = getState();
 
-    dispatch(requestChipotleDistances())
-    return googleService.getClosestChipotleDistance(homeLocation.center, chipotleLocations.locations, travelMode)
+    let placeIdArray = locations.map((chipotle) => {
+      return {
+        placeId: chipotle.placeId
+      }
+    });
+
+    //dispatch(requestChipotleDistances())
+    return googleService.getChipotleDirections(homeLocation.center, placeIdArray, travelMode)
       .then((response) => {
-        let distanceResults = response.rows[0].elements;
 
         let distanceResponse = {};
-        distanceResults.forEach((dist, index) => {
-          let placeId = response.destinationAddresses[index];
+        response.forEach((dirObject) => {
+          let placeId = dirObject.request.destination.placeId;
+          let dist = response[0].routes[0].legs[0];
+
           distanceResponse[placeId] = {
             distance: dist.distance.text,
-            duration: dist.duration.text
-          }
+            duration: dist.duration.text,
+            directions: dirObject
+          };
         });
 
         let actionResponse = {

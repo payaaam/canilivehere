@@ -29,6 +29,7 @@ class GoogleService {
       this.geocodeService = new this.googleMaps.Geocoder;
       this.placesService = new this.googleMaps.places.PlacesService(this.mapReference);
       this.distanceService = new google.maps.DistanceMatrixService();
+      this.directionsService = new google.maps.DirectionsService();
       this.ready = true;
       return true;
     }
@@ -86,8 +87,10 @@ class GoogleService {
   /**
    * This function hits the matrix map API to get walking / driving distance
    * to the closest chipotle location
-   * @param  {[type]} currentLocation [description]
-   * @return {[type]}                 [description]
+   * @param  {Object} currentLocation   
+   * @param  {Array}  chipotleLocations 
+   * @param  {String} travelMode        
+   * @return {[type]}                   
    */
   getClosestChipotleDistance(currentLocation, chipotleLocations, travelMode) {
     return new Promise((resolve,reject) => {
@@ -98,13 +101,6 @@ class GoogleService {
       let { lat, lng }  = currentLocation;
       let currentOrigin = new this.googleMaps.LatLng(lat, lng);
       let destinationLocations = chipotleLocations.map(chipotle => chipotle.address);
-      /*
-      let destinationLocations = chipotleLocations.map((chipotle) => {
-        return {
-          placeId: chipotle.placeId
-        }
-      });
-      */
 
       let distanceOptions = {
         origins: [currentOrigin],
@@ -119,6 +115,55 @@ class GoogleService {
         }
         return resolve(results);
       });
+    });
+  }
+
+
+/**
+ * Makes a single request to the directions service
+ * @param  {Object} requestOptions The options object needed for the request
+ * @return {Promise}               
+ */
+  getDirectionsHelper(requestOptions) {
+    return new Promise((resolve,reject) => {
+      this.directionsService.route(requestOptions, (results, status) => {
+        if (status !== 'OK') {
+          debugger;
+          return reject(new Error('Some google error'));
+        }
+        return resolve(results);
+      });
+    });
+  }
+
+    /**
+   * This function hits the matrix map API to get walking / driving distance
+   * to the closest chipotle location
+   * @param  {[type]} currentLocation [description]
+   * @return {[type]}                 [description]
+   */
+  getChipotleDirections(currentLocation, chipotleLocations, travelMode) {
+    return new Promise((resolve,reject) => {
+      if (!this.isGoogleMapsLoaded()) {
+        return reject(new Error('Library not loaded yet'));
+      }
+
+      let { lat, lng }  = currentLocation;
+      let currentOrigin = new this.googleMaps.LatLng(lat, lng);
+
+      let promiseArray = chipotleLocations.map((destPlaceId) => {
+        let directionsOptions = {
+          origin: currentOrigin,
+          destination: destPlaceId,
+          travelMode: TRAVEL_MODE_MAP[travelMode] || 'WALKING',
+          unitSystem: this.googleMaps.UnitSystem.IMPERIAL
+        }
+        return this.getDirectionsHelper(directionsOptions);
+      });
+
+      Promise.all(promiseArray)
+        .then(resolve)
+        .catch(reject)
     });
   }
 }

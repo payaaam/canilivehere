@@ -40,7 +40,11 @@ class MapContainer extends Component {
   }
 
   renderMapView() {
-    let { centerLocation, homeMarker, chipotleLocations } = this.props;
+    let { centerLocation,
+      homeMarker,
+      chipotleLocations,
+      isFetchingChipotleLocations
+    } = this.props;
 
     return (
       <div className="map-container">
@@ -56,6 +60,7 @@ class MapContainer extends Component {
           }
           homeMarker={homeMarker}
           chipotleMarkers={chipotleLocations}
+          isFetching={isFetchingChipotleLocations}
         />
         <LocationSearch 
           onSearch={this.handleChipotleSearch.bind(this)}
@@ -79,6 +84,7 @@ class MapContainer extends Component {
 const mapStateToProps = state => {
   const { homeLocation } = state;
   const chipotleLocations = state.chipotleLocations.locations;
+  const isFetchingChipotleLocations = state.chipotleLocations.isFetching;
   const centerLocation = homeLocation.center;
   const isFetchingLocation = homeLocation.isFetching;
   const homeMarker = {
@@ -89,7 +95,8 @@ const mapStateToProps = state => {
     centerLocation,
     chipotleLocations,
     isFetchingLocation,
-    homeMarker
+    homeMarker,
+    isFetchingChipotleLocations
   }
 }
 

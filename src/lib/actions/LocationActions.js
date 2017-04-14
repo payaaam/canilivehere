@@ -1,7 +1,6 @@
 import GoogleService from '../utils/GoogleService';
 const googleService = new GoogleService();
 const browserGeolocation = navigator.geolocation
-import { fetchChipotleLocations } from './ChipotleLocationActions';
 
 export const REQUEST_HOME_LOCATION = 'REQUEST_HOME_LOCATION'
 export const RECEIVE_HOME_LOCATION = 'RECEIVE_HOME_LOCATION'

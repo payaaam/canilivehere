@@ -28,7 +28,6 @@ export function receiveChipotleLocationsError(err) {
   }
 }
 
-
 export const REQUEST_CHIPOTLE_DISTANCES = 'REQUEST_CHIPOTLE_DISTANCES';
 export const RECEIVE_CHIPOTLE_DISTANCES = 'RECEIVE_CHIPOTLE_DISTANCES';
 export const RECEIVE_CHIPOTLE_DISTANCES_ERROR = 'RECEIVE_CHIPOTLE_DISTANCES_ERROR';
@@ -103,7 +102,7 @@ export function fetchChipotleDistances(locations, travelMode) {
       }
     });
 
-    //dispatch(requestChipotleDistances())
+    dispatch(requestChipotleDistances())
     return googleService.getChipotleDirections(homeLocation.center, placeIdArray, travelMode)
       .then((response) => {
 

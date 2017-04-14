@@ -43,7 +43,8 @@ class MapContainer extends Component {
     let { centerLocation,
       homeMarker,
       chipotleLocations,
-      isFetchingChipotleLocations
+      isFetchingChipotleLocations,
+      loadingMessage
     } = this.props;
 
     return (
@@ -61,6 +62,7 @@ class MapContainer extends Component {
           homeMarker={homeMarker}
           chipotleMarkers={chipotleLocations}
           isFetching={isFetchingChipotleLocations}
+          loadingMessage={loadingMessage}
         />
         <LocationSearch 
           onSearch={this.handleChipotleSearch.bind(this)}
@@ -85,6 +87,7 @@ const mapStateToProps = state => {
   const { homeLocation } = state;
   const chipotleLocations = state.chipotleLocations.locations;
   const isFetchingChipotleLocations = state.chipotleLocations.isFetching;
+  const loadingMessage = state.chipotleLocations.loadingMessage;
   const centerLocation = homeLocation.center;
   const isFetchingLocation = homeLocation.isFetching;
   const homeMarker = {
@@ -96,7 +99,8 @@ const mapStateToProps = state => {
     chipotleLocations,
     isFetchingLocation,
     homeMarker,
-    isFetchingChipotleLocations
+    isFetchingChipotleLocations,
+    loadingMessage
   }
 }
 

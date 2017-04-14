@@ -2,7 +2,8 @@ import {
   REQUEST_CHIPOTLE_LOCATIONS,
   RECEIVE_CHIPOTLE_LOCATIONS,
   REQUEST_CHIPOTLE_DISTANCES,
-  RECEIVE_CHIPOTLE_DISTANCES
+  RECEIVE_CHIPOTLE_DISTANCES,
+  RECEIVE_CHIPOTLE_DISTANCES_ERROR
 } from '../actions/ChipotleLocationActions'
 
 const defaultLocation = {
@@ -15,6 +16,7 @@ const chipotleLocations = (state=defaultLocation, action) => {
     case REQUEST_CHIPOTLE_LOCATIONS:
       return {
         ...state,
+        loadingMessage: 'Calculating your location...',
         isFetching: true
       }
     case RECEIVE_CHIPOTLE_LOCATIONS:
@@ -24,7 +26,8 @@ const chipotleLocations = (state=defaultLocation, action) => {
       }
     case REQUEST_CHIPOTLE_DISTANCES:
       return {
-        ...state
+        ...state,
+        loadingMessage: 'Finding closest Chipotles...',
       }
     case RECEIVE_CHIPOTLE_DISTANCES:
       let { distances, travelMode } = action.response;
@@ -37,7 +40,6 @@ const chipotleLocations = (state=defaultLocation, action) => {
               distance: distances[location.placeId].distance,
               travelDuration: distances[location.placeId].duration,
               directions: distances[location.placeId].directions
-
             }
           }
         }
@@ -47,6 +49,12 @@ const chipotleLocations = (state=defaultLocation, action) => {
         ...state,
         isFetching: false,
         locations: newLocations
+      }
+    case RECEIVE_CHIPOTLE_DISTANCES_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        loadingMessage: ''
       }
     default:
       return state

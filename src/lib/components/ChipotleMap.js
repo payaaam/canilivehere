@@ -18,8 +18,8 @@ const displayHomeMarker = (props) => {
 }
 
 const displayLoadingIcon = (props) => {
-  let { isFetching } = props;
-  return ( isFetching ? <Loading /> : false )
+  let { isFetching, loadingMessage } = props;
+  return ( isFetching ? <Loading message={loadingMessage} /> : false )
 }
 
 // Generates a Google Map Object

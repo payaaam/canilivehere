@@ -1,14 +1,18 @@
 .loading-container {
   display: flex;
+  height: 90vh;
+  width:100%;
+  position:absolute;
+  top: 0px;
+  left: 0px;
   align-items: center;
   justify-content: center;
-  height: 90vh;
 }
 
 .loading-text {
-  height: 100px;
-  position: absolute;
-  top: 10px;
+  margin-bottom:10px;
+  font-size:24px;
+  text-align: center;
 }
 
 .chipotle-logo-loading {
@@ -17,8 +21,6 @@
   display:block;
   width:250px;
   height:250px;
-  position: absolute;
-  top: 50px;
   -webkit-animation:spin 4s linear infinite;
   -moz-animation:spin 4s linear infinite;
   animation:spin 4s linear infinite;

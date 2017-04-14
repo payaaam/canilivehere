@@ -3,6 +3,7 @@ import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import HomeMarker from './HomeMarker';
 import ChipotleMarker from './ChipotleMarker';
 import Loading from './Loading'
+import chipotleStyle from "../utils/MapStyle";
 
 // Helper function to display all of the chipotle locations
 const displayChipotleMarkers = (props) => {
@@ -28,7 +29,8 @@ const ChipotleMap = withGoogleMap(props => (
     ref={props.onMapLoad}
     defaultZoom={14}
     onBoundsChanged={props.onBoundsChanged}
-    center={props.center}>
+    center={props.center}
+    defaultOptions={{ styles: chipotleStyle }}>
     {displayHomeMarker(props)}
     {displayChipotleMarkers(props)}
     {displayLoadingIcon(props)}

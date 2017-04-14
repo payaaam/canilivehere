@@ -9,9 +9,28 @@ Present user with dialogue in the center of screen
  - Use Current location
  - Enter address
 
+
+
 Display Yes you can live here in top right corner because you are X minutes away
 
 
+
+COLORS
+// Red
+//155 17 13
+// #9B110D
+// 
+// Dark Brown
+// 53 16 0
+// #351000
+// 
+// Light Brown
+// 47 29 22
+// #2F1D16
+// 
+// Beige
+// 135 115 97
+// #717361
 
 IDEA: heatmap near and around chipotle
 

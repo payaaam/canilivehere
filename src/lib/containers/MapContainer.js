@@ -5,6 +5,7 @@ import { fetchGeolocation } from '../actions/LocationActions'
 import { fetchChipotleLocations, fetchChipotleDistances } from '../actions/ChipotleLocationActions'
 import Loading from '../components/Loading'
 import LocationSearch from '../components/LocationSearch'
+import SearchModal from '../components/SearchModal'
 
 import '../../stylesheets/components/chipotle-map.scss'
 
@@ -64,7 +65,7 @@ class MapContainer extends Component {
           isFetching={isFetchingChipotleLocations}
           loadingMessage={loadingMessage}
         />
-        <LocationSearch 
+        <SearchModal
           onSearch={this.handleChipotleSearch.bind(this)}
           onDistanceSearch={this.handleChipotleDistanceClick.bind(this)}
         />

@@ -13,7 +13,6 @@ class App extends Component {
     const children = this.props.children;
     return (
       <div className="wrapper-container">
-        <Header />
         {children}
       </div>
     )

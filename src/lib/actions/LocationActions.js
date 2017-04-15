@@ -1,4 +1,5 @@
 import GoogleService from '../utils/GoogleService';
+import { fetchChipotleLocations } from './ChipotleLocationActions';
 const googleService = new GoogleService();
 const browserGeolocation = navigator.geolocation
 
@@ -34,13 +35,11 @@ export function fetchGeolocation() {
     dispatch(requestHomeLocation())
 
     // Check localStorage
-    /*
     let cachedLocation = localStorage.getItem('canilivehere-geolocation')
     if (cachedLocation) {
       cachedLocation = JSON.parse(cachedLocation);
-      return dispatch(receiveHomeLocation(cachedLocation));
+      dispatch(receiveHomeLocation(cachedLocation));
     }
-    */
     
     browserGeolocation.getCurrentPosition(
       (position) => {
@@ -74,7 +73,8 @@ export function fetchUserLocation(addressText) {
           latitude: response[0].geometry.location.lat(),
           longitude: response[0].geometry.location.lng() 
         }
-        return dispatch(receiveHomeLocation(coordinates))
+        dispatch(receiveHomeLocation(coordinates))
+        dispatch(fetchChipotleLocations())
       })
       .catch((err)  => {
         dispatch(receiveHomeLocationError(err))

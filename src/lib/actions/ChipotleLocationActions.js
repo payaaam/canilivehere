@@ -72,7 +72,7 @@ export function fetchChipotleLocations() {
             location: chipotleLocation.geometry.location,
             id: chipotleLocation.id,
             placeId: chipotleLocation.place_id,
-            address: chipotleLocation.formatted_address.replace('United States','USA'),
+            address: chipotleLocation.formatted_address.replace('United States','USA')
           }
         });
 

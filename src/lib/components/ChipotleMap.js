@@ -8,8 +8,17 @@ import chipotleStyle from "../utils/MapStyle";
 // Helper function to display all of the chipotle locations
 const displayChipotleMarkers = (props) => {
   return props.chipotleMarkers.map((loc) => {
-    //return <ChipotleMarker config={loc}/>
+    if (loc.show === true) {
+      return <ChipotleMarker config={loc}/>
+    }
   });
+}
+
+const generateDefaultOptions = (props) => {
+  return {
+    styles: chipotleStyle,
+    mapTypeControl: props.showMapControls || false
+  }
 }
 
 // Helper function to display the home marker
@@ -30,7 +39,7 @@ const ChipotleMap = withGoogleMap(props => (
     defaultZoom={14}
     onBoundsChanged={props.onBoundsChanged}
     center={props.center}
-    defaultOptions={{ styles: chipotleStyle }}>
+    defaultOptions={generateDefaultOptions(props)}>
     {displayHomeMarker(props)}
     {displayChipotleMarkers(props)}
     {displayLoadingIcon(props)}

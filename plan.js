@@ -9,6 +9,24 @@ Present user with dialogue in the center of screen
  - Use Current location
  - Enter address
 
+ Can I live here?
+ Enter an address to see if its habitable.
+
+
+
+
+ Scale from 1 - 10
+
+ 1 - 6.
+You need to look elsewhere. The UN says being within 10 minutes driving or 
+walking is a basic human right, much like the water and free speech.
+ - Picture of a Burrito falling apart?
+
+
+7 - 10
+Fuck yeah you can live  here. Sign the lease immediately. You are within 10 minutes walking / driving of chipotle.
+ - Show closest chipotle on map and print out directions.
+
 
 
 Display Yes you can live here in top right corner because you are X minutes away
@@ -31,6 +49,15 @@ COLORS
 // Beige
 // 135 115 97
 // #717361
+{
+    "featureType": "landscape",
+    "elementType": "all",
+    "stylers": [
+        {
+            "color": "#9B110D"
+        }
+    ]
+  }
 
 IDEA: heatmap near and around chipotle
 

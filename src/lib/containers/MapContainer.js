@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import ChipotleMap from '../components/ChipotleMap'
 import { fetchGeolocation } from '../actions/LocationActions'
 import { fetchChipotleLocations, fetchChipotleDistances } from '../actions/ChipotleLocationActions'
+import { hideSearchModal, showSearchModal, hideDecisionModal, showDecisionModal } from '../actions/ModalActions'
 import Loading from '../components/Loading'
-import LocationSearch from '../components/LocationSearch'
+import DecisionModal from '../components/DecisionModal'
 import SearchModal from '../components/SearchModal'
 
 import '../../stylesheets/components/chipotle-map.scss'
@@ -40,6 +41,30 @@ class MapContainer extends Component {
     this.props.dispatch(fetchChipotleDistances('driving'));
   }
 
+  renderSearchModal() {
+    let showSearchModal = this.props.showSearchModal;
+    if (showSearchModal) {
+      return (
+        <SearchModal
+          onSearch={this.handleChipotleSearch.bind(this)}
+          onDistanceSearch={this.handleChipotleDistanceClick.bind(this)}
+        />
+      )
+    }
+  }
+
+  renderDecisionModal() {
+    let showDecisionModal = this.props.showDecisionModal;
+    if (showDecisionModal) {
+      return (
+        <DecisionModal
+          onSearch={this.handleChipotleSearch.bind(this)}
+          onDistanceSearch={this.handleChipotleDistanceClick.bind(this)}
+        />
+      )
+    }
+  }
+
   renderMapView() {
     let { centerLocation,
       homeMarker,
@@ -65,10 +90,9 @@ class MapContainer extends Component {
           isFetching={isFetchingChipotleLocations}
           loadingMessage={loadingMessage}
         />
-        <SearchModal
-          onSearch={this.handleChipotleSearch.bind(this)}
-          onDistanceSearch={this.handleChipotleDistanceClick.bind(this)}
-        />
+
+        { this.renderSearchModal() }
+        { this.renderDecisionModal() }
       </div>
     )
   }
@@ -78,7 +102,7 @@ class MapContainer extends Component {
 
     return (
       <div>
-      { isFetchingLocation === true ? <Loading /> : this.renderMapView() }
+      { this.renderMapView() }
       </div>
     );
   }
@@ -86,6 +110,7 @@ class MapContainer extends Component {
 
 const mapStateToProps = state => {
   const { homeLocation } = state;
+  const { showSearchModal, showDecisionModal } = state.modals
   const chipotleLocations = state.chipotleLocations.locations;
   const isFetchingChipotleLocations = state.chipotleLocations.isFetching;
   const loadingMessage = state.chipotleLocations.loadingMessage;
@@ -101,7 +126,9 @@ const mapStateToProps = state => {
     isFetchingLocation,
     homeMarker,
     isFetchingChipotleLocations,
-    loadingMessage
+    loadingMessage,
+    showSearchModal,
+    showDecisionModal
   }
 }
 

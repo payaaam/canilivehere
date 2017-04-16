@@ -65,7 +65,10 @@ IDEA: heatmap near and around chipotle
 
 // store
 {
-
+  modals: {
+    showSearchModal: true,
+    showDecisionModal: false
+  }
   homeLocation: {
     center: {
       lat: action.coordinates.latitude,
@@ -75,6 +78,8 @@ IDEA: heatmap near and around chipotle
     bounds: null
   },
   chipotleLocations: {
+    loadingMessage: 'Calculating your location...',
+    isFetching: true,
     locations: [
       {
         rankByDistance: 1,

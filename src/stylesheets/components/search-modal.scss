@@ -21,33 +21,52 @@ $inputWidth: 300px;
   text-align: center;
 }
 
-.modal-message {
-  margin-bottom: 20px;
-}
 
 
 .modal-title {
   font-size:24px;
   color: #9B110D;
+  text-transform: uppercase;
 }
 
+.modal-message {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #351000;
+  text-transform: uppercase;
+}
+
+
 .search-form {
-  width:100%;
+  width:300px;
+  margin: 0px auto;
   padding-top:10px;
 
   .search-input {
-    width: $inputWidth;
+    width: $inputWidth - 35;
     font-size:18px;
-    height:30px;
+    height:40px;
     display:block;
     margin-bottom:10px;
     border-width: 1px;
     padding: 0px;
     border-radius: 2px;
+    padding-left: 40px;
+    color: #9B110D;
+    
+    background: url("/images/location-marker.png");
+    background-size: 30px 30px;
+    background-position: 5px 5px;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    &::placeholder {
+      color: #9B110D;
+      text-transform: uppercase;
+    }
   }
 
   .search-button {
-    width: $inputWidth+2;
+    width: $inputWidth+7;
     height:50px;
     color: white;
     background-color: #351000;
@@ -55,47 +74,11 @@ $inputWidth: 300px;
     border: none;
     border-radius: 2px;
     cursor: pointer;
+    font-size: 18px;
+    text-transform: uppercase;
 
     &:hover {
       background-color: #717361;
     }
   }
-
 }
-
-
-/*
-
-.location-box {
-  height:150px;
-  width:350px;
-  position: absolute;
-  right:25px;
-  top:100px;
-  background: #fff;
-  box-shadow: 1px 1px 1px 1px #ccc;
-}
-
-.location-input-container {
-  width:100%;
-  padding-top:10px;
-
-  .location-input {
-    margin-left: 10px;
-    margin-right: 10px;
-    width:250px;
-    font-size:18px;
-    height:30px;
-  }
-
-  .search-button {
-    height:30px;
-  }
-}
-
-.site-title {
-  font-size: 18px;
-  color: red;
-}
-
-*/

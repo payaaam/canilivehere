@@ -1,5 +1,6 @@
 import GoogleService from '../utils/GoogleService';
 import config from '../config';
+import { hideSearchModal, showSearchModal, hideDecisionModal, showDecisionModal } from '../actions/ModalActions'
 const googleService = new GoogleService();
 const NUMBER_OF_LOCATIONS = config.numberOfLocations;
 
@@ -62,6 +63,7 @@ export function fetchChipotleLocations() {
   return (dispatch, getState) => {
     let { homeLocation } = getState();
 
+    dispatch(hideSearchModal());
     dispatch(requestChipotleLocations())
     return googleService.getChipotleLocations(homeLocation.center)
       .then((response) => {
@@ -82,6 +84,7 @@ export function fetchChipotleLocations() {
       })
       .catch((err)  => {
         dispatch(receiveChipotleLocationsError(err))
+        dispatch(showDecisionModal())
       })
   }
 }
@@ -123,10 +126,12 @@ export function fetchChipotleDistances(locations, travelMode) {
           travelMode
         };
 
-        return dispatch(receiveChipotleDistances(actionResponse));
+        dispatch(receiveChipotleDistances(actionResponse));
+        dispatch(showDecisionModal())
       })
       .catch((err)  => {
         debugger;
+        dispatch(showDecisionModal())
         dispatch(receiveChipotleDistancesError(err))
       })
   }

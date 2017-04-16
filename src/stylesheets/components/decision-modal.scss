@@ -1,0 +1,25 @@
+.decision-modal-container {
+  height:200px;
+  width:350px;
+  position: absolute;
+  right:25px;
+  top:100px;
+  background: #fff;
+  box-shadow: 1px 1px 1px 1px #ccc;
+}
+
+.decision-modal {
+  width: 300px;
+  margin: 0px auto;
+  text-align:center;
+
+  .decision-title {
+    font-size: 20px;
+    color: #9B110D
+  }
+
+  .decision-message {
+    color: #2F1D16;
+    font-size:12px;
+  }
+}

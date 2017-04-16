@@ -19,6 +19,7 @@ class SearchModal extends Component {
     evt.preventDefault();
     let currentSearchText = this.state.currentInputValue;
     if (currentSearchText === '') {
+      this.props.onSearch()
       return;
     }
     this.state.recentSearches.push(currentSearchText);
@@ -39,16 +40,12 @@ class SearchModal extends Component {
           Can I Live Here?
         </div>
         <div className="modal-message">
-           Enter an address to see if its habitable.
+           Enter an address to see if it's habitable.
         </div>
         <form onSubmit={this.onSubmit.bind(this)} className="search-form">
-          <input type="text" onChange={this.handleInputChange.bind(this)} className="search-input" placeholder="Use current location"></input>
-          <input type="submit" className="search-button"/>
+          <input type="text" onChange={this.handleInputChange.bind(this)} className="search-input" placeholder="Current Location"></input>
+          <input type="submit" className="search-button" value="TELL ME!"/>
         </form>
-        {/*
-        <button onClick={this.props.onSearch.bind(this)}>Search for Chipotle</button>
-        <button onClick={this.props.onDistanceSearch.bind(this)}>Get Distances</button>
-      */}
       </div>
     </div>
     )

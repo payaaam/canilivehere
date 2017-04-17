@@ -144,7 +144,7 @@ export function fetchChipotleDistances(locations, travelMode) {
         let distanceResponse = {};
         response.forEach((dirObject) => {
           let placeId = dirObject.request.destination.placeId;
-          let dist = response[0].routes[0].legs[0];
+          let dist = dirObject.routes[0].legs[0];
 
           distanceResponse[placeId] = {
             distance: dist.distance.text,

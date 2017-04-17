@@ -62,6 +62,7 @@ const chipotleLocations = (state=defaultLocation, action) => {
     case REQUEST_LIVING_DECISION:
       return {
         ...state,
+        closestLocation: {},
         loadingMessage: 'Determining habitability...'
       }
     case RECEIVE_LIVING_DECISION:

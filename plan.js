@@ -80,6 +80,10 @@ IDEA: heatmap near and around chipotle
   chipotleLocations: {
     loadingMessage: 'Calculating your location...',
     isFetching: true,
+    decision: {
+      habitable: true,
+      closestPlaceId: ChIJIfBAsjeuEmsRdgu9Pl1Ps48
+    }
     locations: [
       {
         rankByDistance: 1,

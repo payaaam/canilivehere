@@ -1,5 +1,4 @@
 import GoogleService from '../utils/GoogleService';
-import DecisionService from '../utils/DecisionService';
 import { fetchChipotleLocations } from './ChipotleLocationActions';
 const googleService = new GoogleService();
 const browserGeolocation = navigator.geolocation

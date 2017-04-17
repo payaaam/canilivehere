@@ -3,5 +3,6 @@ export default {
     apiKey: 'AIzaSyAjhK6S2OPz-Xn82D1O0RfYO4M3IYB6HfM'
   },
   tempMapId: 'map-temp',
-  numberOfLocations: 5
+  numberOfLocations: 5,
+  minTime: 10
 }

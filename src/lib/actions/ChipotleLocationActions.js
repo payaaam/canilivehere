@@ -1,7 +1,14 @@
 import GoogleService from '../utils/GoogleService';
+import DecisionService from '../utils/DecisionService';
 import config from '../config';
-import { hideSearchModal, showSearchModal, hideDecisionModal, showDecisionModal } from '../actions/ModalActions'
+import { 
+  hideSearchModal,
+  showSearchModal,
+  hideDecisionModal,
+  showDecisionModal 
+} from '../actions/ModalActions';
 const googleService = new GoogleService();
+const decisionService = new DecisionService();
 const NUMBER_OF_LOCATIONS = config.numberOfLocations;
 
 
@@ -49,6 +56,31 @@ export function receiveChipotleDistances(response) {
 export function receiveChipotleDistancesError(err) {
   return {
     type: RECEIVE_CHIPOTLE_DISTANCES_ERROR,
+    err: err
+  }
+}
+
+
+export const REQUEST_LIVING_DECISION = 'REQUEST_LIVING_DECISION';
+export const RECEIVE_LIVING_DECISION = 'RECEIVE_LIVING_DECISION';
+export const RECEIVE_LIVING_DECISION_ERROR = 'RECEIVE_LIVING_DECISION_ERROR';
+
+export function requestLivingDecision() {
+  return {
+    type: REQUEST_LIVING_DECISION
+  }
+}
+
+export function receiveLivingDecision(response) {
+  return {
+    type: RECEIVE_LIVING_DECISION,
+    response
+  }
+}
+
+export function receiveLivingDecisionError(err) {
+  return {
+    type: RECEIVE_LIVING_DECISION_ERROR,
     err: err
   }
 }
@@ -126,13 +158,39 @@ export function fetchChipotleDistances(locations, travelMode) {
           travelMode
         };
 
+
         dispatch(receiveChipotleDistances(actionResponse));
-        dispatch(showDecisionModal())
+        dispatch(determineLivingDecision())
       })
       .catch((err)  => {
         debugger;
         dispatch(showDecisionModal())
         dispatch(receiveChipotleDistancesError(err))
       })
+  }
+}
+
+/**
+ * This function takes address string and gets its coordinates (lat, lng)
+ * from Google. 
+ * 
+ * @param  {Object} currentLocation An object containing {lat:10, lng: 10}
+ */
+export function determineLivingDecision() {
+  return (dispatch, getState) => {
+    let { chipotleLocations } = getState();
+    
+    dispatch(requestLivingDecision())
+    return decisionService.process(chipotleLocations.locations)
+      .then((response) => {
+        setTimeout(() => {
+          dispatch(receiveLivingDecision(response))
+          dispatch(showDecisionModal());
+        }, 2000);
+      })
+      .catch((err) => {
+        debugger;
+        dispatch(receiveLivingDecisionError(err))
+      });
   }
 }

@@ -3,7 +3,10 @@ import {
   RECEIVE_CHIPOTLE_LOCATIONS,
   REQUEST_CHIPOTLE_DISTANCES,
   RECEIVE_CHIPOTLE_DISTANCES,
-  RECEIVE_CHIPOTLE_DISTANCES_ERROR
+  RECEIVE_CHIPOTLE_DISTANCES_ERROR,
+  REQUEST_LIVING_DECISION,
+  RECEIVE_LIVING_DECISION,
+  RECEIVE_LIVING_DECISION_ERROR
 } from '../actions/ChipotleLocationActions'
 
 const defaultLocation = {
@@ -31,7 +34,7 @@ const chipotleLocations = (state=defaultLocation, action) => {
       }
     case RECEIVE_CHIPOTLE_DISTANCES:
       let { distances, travelMode } = action.response;
-      let newLocations = state.locations.map((location) => {
+      let distancesNewLocations = state.locations.map((location) => {
         return {
           ...location,
           distance: {
@@ -47,10 +50,39 @@ const chipotleLocations = (state=defaultLocation, action) => {
 
       return {
         ...state,
-        isFetching: false,
-        locations: newLocations
+        locations: distancesNewLocations
       }
     case RECEIVE_CHIPOTLE_DISTANCES_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        loadingMessage: ''
+      }
+
+    case REQUEST_LIVING_DECISION:
+      return {
+        ...state,
+        loadingMessage: 'Determining habitability...'
+      }
+    case RECEIVE_LIVING_DECISION:
+      let closestPlaceId = action.response.placeId;
+      let livingDecisionNewLocations = state.locations.map((location) => {
+        if (location.placeId === closestPlaceId) {
+          return {
+            ...location,
+            show: true
+          }
+        }
+        return location;
+      });
+      return {
+        ...state,
+        isFetching: false,
+        locations: livingDecisionNewLocations,
+        closestLocation: action.response,
+        loadingMessage: ''
+      }
+    case RECEIVE_LIVING_DECISION_ERROR:
       return {
         ...state,
         isFetching: false,

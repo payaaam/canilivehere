@@ -4,6 +4,7 @@ import {
   RECEIVE_HOME_LOCATION_ERROR
 } from '../actions/LocationActions'
 
+
 const defaultLocation = {
   center: {
     lat: 40.748,

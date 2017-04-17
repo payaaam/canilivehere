@@ -1,7 +1,12 @@
-1) Save 5 closest locations
-2) Make API Directions call for walking / driving
-3) Save in state
-4) Load chipotle spinning logo while its making the requests
+TODO
+
+1) Update Success Messaging
+2) Set up directions to closest chipotle
+3) Zoom in on Map in area
+4) Handle Errors
+ - Failed Chipotle Search
+ - Failed Distance / Direction Search
+ - Failed Decision Engine
 
 
 UX

@@ -17,7 +17,9 @@ const displayChipotleMarkers = (props) => {
 const generateDefaultOptions = (props) => {
   return {
     styles: chipotleStyle,
-    mapTypeControl: props.showMapControls || false
+    mapTypeControl: props.showMapControls || false,
+    streetViewControl: false,
+    zoomControl: false
   }
 }
 

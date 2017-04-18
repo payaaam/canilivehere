@@ -18,24 +18,26 @@ class DecisionService {
 
 
   getTravelTime(durationString) {
-    if (!durationString.includes(' mins')) {
+    if (durationString.includes('days') || durationString.includes('hour')) {
       return ERROR_NUMBER;
     }
-
+    
     let duration =  durationString.replace(' mins', '');
     try {
-      duration = parseInt(duration);
+      duration = parseInt(duration, 10);
     } catch(e) {
       return ERROR_NUMBER
     }
     return duration;
   }
 
+  //7911 Hollington Place 22039
   process(chipotleLocations) {
     return new Promise((resolve, reject) => {
       chipotleLocations.some((loc) => {
         let walking = _.get(loc, 'distance.walking');
         let driving = _.get(loc, 'distance.driving');
+
 
         if (this.isWithinTimeRange(walking)) {
           resolve({

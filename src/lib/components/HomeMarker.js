@@ -6,7 +6,7 @@ class HomeMarker extends Component {
 
   state = {
     key: 'home',
-    defaultAnimation: 2,
+    defaultAnimation: null,
     icon: {
       url: '/images/home-icon.png',
       size: new google.maps.Size(60, 60),

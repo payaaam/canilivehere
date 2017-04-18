@@ -36,18 +36,12 @@ class MapContainer extends Component {
     this.props.dispatch(fetchChipotleLocations());
   }
 
-  handleChipotleDistanceClick() {
-    this.props.dispatch(fetchChipotleDistances('walking'));
-    this.props.dispatch(fetchChipotleDistances('driving'));
-  }
-
   renderSearchModal() {
     let showSearchModal = this.props.showSearchModal;
     if (showSearchModal) {
       return (
         <SearchModal
           onSearch={this.handleChipotleSearch.bind(this)}
-          onDistanceSearch={this.handleChipotleDistanceClick.bind(this)}
         />
       )
     }
@@ -57,10 +51,7 @@ class MapContainer extends Component {
     let showDecisionModal = this.props.showDecisionModal;
     if (showDecisionModal) {
       return (
-        <DecisionModal
-          onSearch={this.handleChipotleSearch.bind(this)}
-          onDistanceSearch={this.handleChipotleDistanceClick.bind(this)}
-        />
+        <DecisionModal />
       )
     }
   }

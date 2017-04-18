@@ -87,7 +87,8 @@ const chipotleLocations = (state=defaultLocation, action) => {
       return {
         ...state,
         isFetching: false,
-        loadingMessage: ''
+        loadingMessage: '',
+        closestLocation: {}
       }
     default:
       return state

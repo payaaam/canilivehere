@@ -3,8 +3,6 @@ import DecisionService from '../utils/DecisionService';
 import config from '../config';
 import { 
   hideSearchModal,
-  showSearchModal,
-  hideDecisionModal,
   showDecisionModal 
 } from '../actions/ModalActions';
 const googleService = new GoogleService();
@@ -112,7 +110,7 @@ export function fetchChipotleLocations() {
 
         dispatch(receiveChipotleLocations(locations));
         dispatch(fetchChipotleDistances(locations, 'walking'));
-        //dispatch(fetchChipotleDistances(locations, 'driving'));
+        dispatch(fetchChipotleDistances(locations, 'driving'));
       })
       .catch((err)  => {
         dispatch(receiveChipotleLocationsError(err))
@@ -163,7 +161,6 @@ export function fetchChipotleDistances(locations, travelMode) {
         dispatch(determineLivingDecision())
       })
       .catch((err)  => {
-        debugger;
         dispatch(showDecisionModal())
         dispatch(receiveChipotleDistancesError(err))
       })
@@ -189,8 +186,10 @@ export function determineLivingDecision() {
         }, 2000);
       })
       .catch((err) => {
-        debugger;
-        dispatch(receiveLivingDecisionError(err))
+        setTimeout(() => {
+          dispatch(receiveLivingDecisionError(err))
+          dispatch(showDecisionModal());
+        }, 2000);
       });
   }
 }

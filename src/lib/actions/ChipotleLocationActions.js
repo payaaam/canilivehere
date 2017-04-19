@@ -114,8 +114,8 @@ export function fetchChipotleLocations() {
       })
       .catch((err)  => {
         dispatch(receiveChipotleLocationsError(err))
-        dispatch(showDecisionModal())
-      })
+        dispatch(determineLivingDecision())
+      });
   }
 }
 

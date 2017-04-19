@@ -1,0 +1,84 @@
+$inputWidth: 300px;
+
+.search-modal-container {
+  display: flex;
+  height: 100vh;
+  width:100%;
+  position:absolute;
+  top: 0px;
+  left: 0px;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-modal {
+  width:400px;
+  height: 200px;
+  background: #fff;
+  box-shadow: 1px 1px 1px 1px #ccc;
+  border-radius: 3px;
+  padding: 20px;
+  text-align: center;
+}
+
+
+
+.modal-title {
+  font-size:24px;
+  color: #9B110D;
+  text-transform: uppercase;
+}
+
+.modal-message {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #351000;
+  text-transform: uppercase;
+}
+
+
+.search-form {
+  width:300px;
+  margin: 0px auto;
+  padding-top:10px;
+
+  .search-input {
+    width: $inputWidth - 35;
+    font-size:18px;
+    height:40px;
+    display:block;
+    margin-bottom:10px;
+    border-width: 1px;
+    padding: 0px;
+    border-radius: 2px;
+    padding-left: 40px;
+    color: #9B110D;
+    
+    background: url("/images/location-marker.png");
+    background-size: 30px 30px;
+    background-position: 5px 5px;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    &::placeholder {
+      color: #9B110D;
+      text-transform: uppercase;
+    }
+  }
+
+  .search-button {
+    width: $inputWidth+7;
+    height:50px;
+    color: white;
+    background-color: #351000;
+    display:block;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 18px;
+    text-transform: uppercase;
+
+    &:hover {
+      background-color: #717361;
+    }
+  }
+}

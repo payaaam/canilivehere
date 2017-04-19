@@ -3,11 +3,22 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>React App</title>
-    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans|PT+Sans" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-97665740-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjhK6S2OPz-Xn82D1O0RfYO4M3IYB6HfM&libraries=places"></script>
+    <title>Can I Live Here?</title>
   </head>
   <body>
     <div id="root"></div>
+    <div id="map-temp" style="display:none;"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -18,5 +29,7 @@
       To begin the development, run `npm start` in this folder.
       To create a production bundle, use `npm run build`.
     -->
+
   </body>
+
 </html>

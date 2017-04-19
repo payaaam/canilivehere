@@ -1,13 +1,14 @@
 import { routerReducer as routing } from 'react-router-redux'
 import { combineReducers } from 'redux'
-
-const defaultReducer = (state={}, action) => {
-  return state
-}
+import homeLocation from './HomeLocationReducer'
+import chipotleLocations from './ChipotleLocationReducer'
+import modals from './ModalReducer'
 
 const rootReducer = combineReducers({
-  defaultReducer,
-  routing
+  routing,
+  homeLocation,
+  chipotleLocations,
+  modals
 })
 
 export default rootReducer

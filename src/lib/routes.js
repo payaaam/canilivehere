@@ -1,11 +1,11 @@
 import React from 'react'
 import { Route } from 'react-router'
-import Home from './containers/Home'
+import MapContainer from './containers/MapContainer'
 import App from './containers/App'
 
 const Routes = (
   <Route path="" component={App} >
-    <Route path="/" component={Home} />
+    <Route path="/" component={MapContainer} />
   </Route>
 );
 

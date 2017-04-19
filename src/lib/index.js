@@ -7,7 +7,12 @@ import configureStore from './store/configureStore'
 import '../stylesheets/main.scss'
 
 
-const initailState = {}
+const initailState = {
+  map: {
+    center: {}
+  }
+}
+
 const store = configureStore(initailState)
 const history = syncHistoryWithStore(browserHistory, store)
 

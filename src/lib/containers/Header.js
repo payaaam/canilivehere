@@ -9,7 +9,8 @@ class Header extends Component {
     return (
       <header className="header-container">
         <div className="header-row">
-          Header
+          <div className="chipotle-logo"></div>
+          <span>Can I Live Here?</span>
         </div>
       </header>
     )

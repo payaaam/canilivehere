@@ -57,7 +57,8 @@ const chipotleLocations = (state=defaultLocation, action) => {
       return {
         ...state,
         isFetching: false,
-        loadingMessage: ''
+        loadingMessage: '',
+        locations: []
       }
 
     case REQUEST_LIVING_DECISION:

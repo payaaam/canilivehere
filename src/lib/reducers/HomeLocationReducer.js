@@ -11,7 +11,8 @@ const defaultLocation = {
     lng: -73.985
   },
   bounds: null,
-  marker: {}
+  marker: {},
+  zoom: 14
 }
 
 const homeLocation = (state=defaultLocation, action) => {

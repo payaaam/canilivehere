@@ -11,7 +11,8 @@ import {
 
 const defaultLocation = {
   isFetching: false,
-  locations: []
+  locations: [],
+  closestLocation: {}
 }
 
 const chipotleLocations = (state=defaultLocation, action) => {

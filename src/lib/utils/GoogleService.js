@@ -50,7 +50,9 @@ class GoogleService {
 
       this.geocodeService.geocode({address: addressText}, (results, status) => {
         if (status !== 'OK') {
-          return reject(new Error('Some google error'));
+          let err = new Error(`GeocoderService Error: ${status}`);
+          console.error(err);
+          return reject(err);
         }
         return resolve(results);
       });
@@ -77,7 +79,9 @@ class GoogleService {
       
       this.placesService.textSearch(requestOptions, (results, status) => {
         if (status !== 'OK') {
-          return reject(new Error('Some google error'));
+          let err = new Error(`PlacesService Error: ${status}`);
+          console.error(err);
+          return reject(err);
         }
         return resolve(results);
       });
@@ -111,7 +115,9 @@ class GoogleService {
       
       this.distanceService.getDistanceMatrix(distanceOptions, (results, status) => {
         if (status !== 'OK') {
-          return reject(new Error('Some google error'));
+          let err = new Error(`DistanceService Error: ${status}`);
+          console.error(err);
+          return reject(err);
         }
         return resolve(results);
       });
@@ -128,8 +134,9 @@ class GoogleService {
     return new Promise((resolve,reject) => {
       this.directionsService.route(requestOptions, (results, status) => {
         if (status !== 'OK') {
-          debugger;
-          return reject(new Error('Some google error'));
+          let err = new Error(`DirectionsService Error: ${status}`);
+          console.error(err);
+          return reject(err);
         }
         return resolve(results);
       });

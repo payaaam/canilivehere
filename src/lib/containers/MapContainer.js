@@ -56,6 +56,18 @@ class MapContainer extends Component {
     }
   }
 
+  getDirections() {
+    try {
+      let { placeId, travelMode } = this.props.closestLocation;
+      let closestChipotle = this.props.chipotleLocations.find(loc => placeId === loc.placeId);
+      return closestChipotle.distance[travelMode].directions;
+    } catch(e) {
+      return undefined;
+    }
+  }
+
+
+
   renderMapView() {
     let { centerLocation,
       homeMarker,
@@ -80,6 +92,7 @@ class MapContainer extends Component {
           chipotleMarkers={chipotleLocations}
           isFetching={isFetchingChipotleLocations}
           loadingMessage={loadingMessage}
+          directions={this.getDirections()}
         />
 
         { this.renderSearchModal() }
@@ -90,7 +103,6 @@ class MapContainer extends Component {
 
   render() {
     let { isFetchingLocation } = this.props;
-
     return (
       <div>
       { this.renderMapView() }
@@ -101,6 +113,7 @@ class MapContainer extends Component {
 
 const mapStateToProps = state => {
   const { homeLocation } = state;
+  const { closestLocation } = state.chipotleLocations;
   const { showSearchModal, showDecisionModal } = state.modals
   const chipotleLocations = state.chipotleLocations.locations;
   const isFetchingChipotleLocations = state.chipotleLocations.isFetching;
@@ -111,6 +124,7 @@ const mapStateToProps = state => {
     position: centerLocation
   }
 
+
   return {
     centerLocation,
     chipotleLocations,
@@ -119,7 +133,8 @@ const mapStateToProps = state => {
     isFetchingChipotleLocations,
     loadingMessage,
     showSearchModal,
-    showDecisionModal
+    showDecisionModal,
+    closestLocation
   }
 }
 

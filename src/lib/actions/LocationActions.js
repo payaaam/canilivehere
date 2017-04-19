@@ -3,6 +3,13 @@ import { fetchChipotleLocations } from './ChipotleLocationActions';
 const googleService = new GoogleService();
 const browserGeolocation = navigator.geolocation
 
+export const SET_MAP_ZOOM = 'SET_MAP_ZOOM'
+export function setMapZoom(zoom) {
+  return {
+    type: SET_MAP_ZOOM,
+    zoom 
+  }
+}
 
 export const REQUEST_HOME_LOCATION = 'REQUEST_HOME_LOCATION'
 export const RECEIVE_HOME_LOCATION = 'RECEIVE_HOME_LOCATION'

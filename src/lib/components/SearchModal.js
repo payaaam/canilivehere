@@ -19,7 +19,7 @@ class SearchModal extends Component {
     evt.preventDefault();
     let currentSearchText = this.state.currentInputValue;
     if (currentSearchText === '') {
-      this.props.onSearch()
+      this.props.onSearch(true)
       return;
     }
     this.state.recentSearches.push(currentSearchText);

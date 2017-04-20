@@ -39,7 +39,7 @@ export function receiveHomeLocationError(err) {
 /**
  * Uses browser to find current coordinates (lat, lng)
  */
-export function fetchGeolocation() {
+export function fetchGeolocation(shouldSearch) {
   return (dispatch) => {
     dispatch(requestHomeLocation())
 
@@ -59,6 +59,9 @@ export function fetchGeolocation() {
 
         localStorage.setItem('canilivehere-geolocation', JSON.stringify(coords));
         dispatch(receiveHomeLocation(coords));
+        if (shouldSearch) {
+          dispatch(fetchChipotleLocations())
+        }
       },
       (err) => {
         dispatch(receiveHomeLocationError(err))

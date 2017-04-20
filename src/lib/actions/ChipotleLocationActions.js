@@ -113,7 +113,7 @@ export function fetchChipotleLocations() {
         dispatch(fetchChipotleDistances(locations, 'driving'));
       })
       .catch((err)  => {
-        dispatch(receiveChipotleLocationsError(err))
+        dispatch(receiveChipotleLocationsError(err));
         dispatch(determineLivingDecision())
       });
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ChipotleMap from '../components/ChipotleMap'
-import { fetchGeolocation } from '../actions/LocationActions'
+import { fetchGeolocation, fetchGeolocationAndSearch } from '../actions/LocationActions'
 import { fetchChipotleLocations, fetchChipotleDistances } from '../actions/ChipotleLocationActions'
 import { hideSearchModal, showSearchModal, hideDecisionModal, showDecisionModal } from '../actions/ModalActions'
 import Loading from '../components/Loading'
@@ -32,8 +32,12 @@ class MapContainer extends Component {
     });
   }
 
-  handleChipotleSearch() {
-    this.props.dispatch(fetchChipotleLocations());
+  handleChipotleSearch(geoSearch) {
+    let { dispatch } = this.props;
+    if (geoSearch) {
+      return dispatch(fetchGeolocation(true));
+    }
+    return dispatch(fetchChipotleLocations());
   }
 
   renderSearchModal() {

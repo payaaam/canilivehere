@@ -1,6 +1,7 @@
 import { 
   REQUEST_CHIPOTLE_LOCATIONS,
   RECEIVE_CHIPOTLE_LOCATIONS,
+  RECEIVE_CHIPOTLE_LOCATIONS_ERROR,
   REQUEST_CHIPOTLE_DISTANCES,
   RECEIVE_CHIPOTLE_DISTANCES,
   RECEIVE_CHIPOTLE_DISTANCES_ERROR,
@@ -28,6 +29,11 @@ const chipotleLocations = (state=defaultLocation, action) => {
         ...state,
         locations: action.locations
       }
+    case RECEIVE_CHIPOTLE_LOCATIONS_ERROR:
+      return {
+        ...state,
+        locations: []
+      }
     case REQUEST_CHIPOTLE_DISTANCES:
       return {
         ...state,
@@ -48,7 +54,6 @@ const chipotleLocations = (state=defaultLocation, action) => {
           }
         }
       });
-
       return {
         ...state,
         locations: distancesNewLocations
